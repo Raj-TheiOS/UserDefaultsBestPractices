@@ -22,7 +22,12 @@ class ViewController: UIViewController {
     @IBAction func didtapLogin(_ sender: Any) {
         if isValid() {
             SavedData.clearData()
-            SavedData.authenticateUser(emailTF.text ?? "", passwordTF.text ?? "")
+            SavedData.customerEmail = emailTF.text ?? ""
+            SavedData.customerPassword = passwordTF.text ?? ""
+            self.showMessage(title: "Login Success!", msg: "Data is saved successfully.")
+
+            /* To save data in large amount*/
+          //  SavedData.authenticateUser(emailTF.text ?? "", passwordTF.text ?? "")
         }
     }
     
@@ -42,11 +47,11 @@ class ViewController: UIViewController {
     // MARK:- Validating input fields
     func isValid() -> Bool {
         if emailTF.text?.isEmpty ?? false {
-            print("Invalid email")
+            self.showMessage(title: "Invalid email", msg: "Please enter valid email")
             return false
         }
         if passwordTF.text?.isEmpty ?? false {
-            print("Invalid password")
+            self.showMessage(title: "Invalid password", msg: "Please enter valid password")
             return false
         }
         return true
@@ -55,11 +60,11 @@ class ViewController: UIViewController {
     // MARK:- Validating input fields
     func isValidData() -> Bool {
         if SavedData.customerEmail?.isEmpty ?? false {
-            print("No data found")
+            self.showMessage(title: "No data found", msg: "Please login by entering valid email and password")
             return false
         }
         if SavedData.customerPassword?.isEmpty ?? false {
-            print("No data found")
+            self.showMessage(title: "No data found", msg: "Please login by entering valid email and password")
             return false
         }
         return true
